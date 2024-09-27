@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Response, HTTPException
+from fastapi import APIRouter, Depends, Response
 from sqlalchemy.orm import Session
 from domain.community.post import scheme, service
 from database import get_db
@@ -7,9 +7,6 @@ router = APIRouter()
 
 @router.get("/post")
 def get_list(page: int = 1, limit: int = 10, db: Session = Depends(get_db)):
-    if page <= 0:
-        raise HTTPException(status_code=400, detail="잘못된 게시글 요청입니다")
-    
     lists = service.find_by_page(db=db, page=page, limit=limit)
 
     return lists
@@ -17,9 +14,6 @@ def get_list(page: int = 1, limit: int = 10, db: Session = Depends(get_db)):
 
 @router.get("/post/{post_id}")
 def get_detail(post_id: int, db: Session = Depends(get_db)):
-    if post_id <= 0:
-        raise HTTPException(status_code=400, detail="잘못된 게시글 요청입니다")
-    
     post = service.find_by_id(db=db, id=post_id)
     
     return post

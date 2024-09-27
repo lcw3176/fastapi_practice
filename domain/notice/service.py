@@ -1,10 +1,13 @@
 from models import Notice
 from datetime import datetime
-
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 
 
 def find_by_page(db: Session, page: int, limit: int = 10):
+    if page <= 0:
+        raise HTTPException(status_code=400, detail="잘못된 페이지 요청입니다")
+    
     lst = db.query(Notice).order_by(Notice.create_date.desc())
 
     total_size = lst.count()
@@ -14,8 +17,14 @@ def find_by_page(db: Session, page: int, limit: int = 10):
 
 
 def find_by_id(db: Session, id: int):
+    if id <= 0:
+        raise HTTPException(status_code=400, detail="잘못된 id 값입니다")
+    
     notice = db.query(Notice).filter(Notice.id == id).first()
 
+    if not notice:
+        raise HTTPException(status_code=404, detail="공지사항을 찾을 수 없습니다")
+    
     return notice
 
 
@@ -25,15 +34,13 @@ def save(db: Session, notice_type: str, title: str, content: str):
     db.add(notice)
     db.commit()
 
-    return True
-
 
 
 def modify(db: Session, id: int,  notice_type: str, title: str, content: str):
     notice = db.query(Notice).filter(Notice.id == id).first()
     
-    if notice == None:
-        return False
+    if not notice:
+        raise HTTPException(status_code=404, detail="공지사항을 찾을 수 없습니다")
     
     notice.notice_type = notice_type
     notice.title = title
@@ -41,15 +48,15 @@ def modify(db: Session, id: int,  notice_type: str, title: str, content: str):
 
     db.commit()    
 
-    return True
-
 def delete(db: Session, id: int):
-    notice = db.query(Notice).filter(Notice.id == id)
+    notice = db.query(Notice).filter(Notice.id == id).first()
 
-    notice.delete()
+    if not notice:
+        raise HTTPException(status_code=404, detail="공지사항을 찾을 수 없습니다")
+    
+    
+    db.delete(notice)
     db.commit()
-
-    return True
 
 
     # UPDATE("업데이트"),
