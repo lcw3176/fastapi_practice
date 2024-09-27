@@ -7,7 +7,7 @@ class Notice(Base):
 
     id = Column(Integer, primary_key=True)
     title = Column(String, nullable=False)
-    noticeType = Column(String, nullable=False)
+    notice_type = Column(String, nullable=False)
     content = Column(String, nullable=False)
     create_date = Column(DateTime, nullable=False)
 
@@ -21,7 +21,6 @@ class Post(Base):
     content = Column(Text, nullable=False)
     password = Column(String, nullable=False)
     commentCount = Column(Integer, nullable=False)
-    deleted = Column(Boolean)
     create_date = Column(DateTime, nullable=False)
 
 
@@ -32,6 +31,5 @@ class Comment(Base):
     writer = Column(String, nullable=False)
     content = Column(Text, nullable=False)
     password = Column(String, nullable=False)
-    deleted = Column(Boolean)
     create_date = Column(DateTime, nullable=False)
     post_id = Column(Integer, nullable=False)
