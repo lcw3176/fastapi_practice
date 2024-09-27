@@ -30,8 +30,14 @@ def find_by_page(db: Session, page: int, limit: int):
     for i in post_list:
         del i.password
         del i.content
+
+    total_page = total_size // limit + 1
+
+    if total_size % limit == 0:
+        total_page = total_size // limit
     
-    return {"total_page": total_size // limit + 1, "post_list": post_list }
+    
+    return {"total_page": total_page, "post_list": post_list }
 
 
 def find_by_id(db: Session, id: int):
@@ -48,6 +54,6 @@ def delete(db: Session, id: int, password: str):
     comments = db.query(Comment).filter(Comment.post_id == post.id)
     
     comments.delete()
-    
+
     db.delete(post)
     db.commit()

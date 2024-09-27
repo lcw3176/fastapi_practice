@@ -16,7 +16,13 @@ def find_by_page(db: Session, post_id: int, page: int, limit: int = 10):
     total_size = lst.count()
     notice_list = lst.offset((page - 1) * limit).limit(limit).all()
 
-    return {"total_page": total_size // limit + 1, "comment_list": notice_list}
+    total_page = total_size // limit + 1
+
+    if total_size % limit == 0:
+        total_page = total_size // limit
+    
+    return {"total_page": total_page, "comment_list": notice_list}
+
 
 def save(db: Session, post_id: int, writer: str, content: str, password: str):
     post = db.query(Post).filter(Post.id == post_id).first()
@@ -30,8 +36,6 @@ def save(db: Session, post_id: int, writer: str, content: str, password: str):
     db.add(comment)
     db.commit()
 
-    return True
-
 
 def delete(db: Session, comment_id: int, password: str):  
 
@@ -44,7 +48,6 @@ def delete(db: Session, comment_id: int, password: str):
         raise HTTPException(status_code=404, detail="댓글을 찾을 수 없습니다")
 
     post_id = comment.post_id
-    
     post = db.query(Post).filter(Post.id == post_id).first()
 
     if not post:
@@ -54,5 +57,3 @@ def delete(db: Session, comment_id: int, password: str):
 
     db.delete(comment)
     db.commit()
-
-    return True

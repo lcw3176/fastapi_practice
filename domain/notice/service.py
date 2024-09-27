@@ -12,8 +12,13 @@ def find_by_page(db: Session, page: int, limit: int = 10):
 
     total_size = lst.count()
     notice_list = lst.offset((page - 1) * limit).limit(limit).all()
+    total_page = total_size // limit + 1
 
-    return {"total_page": total_size // limit + 1, "notice_list": notice_list}
+    if total_size % limit == 0:
+        total_page = total_size // limit
+    
+
+    return {"total_page": total_page, "notice_list": notice_list}
 
 
 def find_by_id(db: Session, id: int):
