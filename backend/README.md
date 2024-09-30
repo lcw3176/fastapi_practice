@@ -1,5 +1,6 @@
 ## 실행
 - uvicorn main:app --reload
+- 모듈 빵꾸나는건 사용자 환경에 맞게 pip install
 
 ## 메모
 - alembic upgrade head 
