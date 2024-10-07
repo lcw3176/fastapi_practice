@@ -3,6 +3,7 @@ import { LatLng, Radius, Tile } from '@/assets/js/mapshot.min'
 import axios from 'axios'
 import proj4 from 'proj4'
 
+// const apiUrl = process.env.VUE_APP_API_URL
 const apiUrl = process.env.VUE_APP_API_URL
 const layerUrl = process.env.VUE_APP_LAYER_API_URL
 

@@ -9,6 +9,7 @@ const api = axios.create({
   adapter: cacheAdapterEnhancer(axios.getAdapter(axios.defaults.adapter)),
 });
 
+// const apiUrl = process.env.VUE_APP_API_URL
 const apiUrl = "http://localhost:8000";
 
 api.interceptors.response.use(

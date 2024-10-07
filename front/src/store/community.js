@@ -24,6 +24,7 @@ api.interceptors.response.use(
   }
 );
 
+// const apiUrl = process.env.VUE_APP_API_URL
 const apiUrl = "http://localhost:8000";
 
 
