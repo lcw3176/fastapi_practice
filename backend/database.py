@@ -5,15 +5,17 @@ from dotenv import dotenv_values
 
 config = dotenv_values(".env")
 
-SQLALCHEMY_DATABASE_URL = config["DB_URL"]
+username = config["POSTGRES_USER"]
+password = config["POSTGRES_PASSWORD"]
+host = config["POSTGRES_HOST"]
+port = config["POSTGRES_PORT"]
+db_name = config["POSTGRES_DB_NAME"]
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
+
+
+engine = create_engine(f'postgresql://{username}:{password}@{host}:{port}/{db_name}')                                               
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
 Base = declarative_base()
-
 
 def get_db():
     db = SessionLocal()
