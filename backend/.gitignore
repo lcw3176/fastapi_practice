@@ -30,5 +30,5 @@ archive.zip
 .DS_Store
 
 # 커스텀
-alembic.ini
+*.ini
 *.env
