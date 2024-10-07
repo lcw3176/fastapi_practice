@@ -31,3 +31,4 @@ archive.zip
 
 # 커스텀
 alembic.ini
+*.env
