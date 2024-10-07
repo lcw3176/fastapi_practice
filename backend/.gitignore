@@ -30,5 +30,4 @@ archive.zip
 .DS_Store
 
 # 커스텀
-*.ini
 *.env
