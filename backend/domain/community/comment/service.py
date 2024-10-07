@@ -42,7 +42,7 @@ def delete(db: Session, comment_id: int, password: str):
     if comment_id <= 0:
         raise HTTPException(status_code=400, detail="잘못된 댓글 아이디 값입니다")
       
-    comment = db.query(Comment).filter(Comment.id == comment_id and Comment.password == password).fisrt()
+    comment = db.query(Comment).filter(Comment.id == comment_id, Comment.password == password).first()
 
     if not comment:
         raise HTTPException(status_code=404, detail="댓글을 찾을 수 없습니다")
