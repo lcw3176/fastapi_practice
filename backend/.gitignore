@@ -32,4 +32,3 @@ archive.zip
 # 커스텀
 *.env
 postgres-data/
-docker-compose.yml
