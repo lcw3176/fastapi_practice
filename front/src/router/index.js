@@ -4,8 +4,7 @@ import { useLoaderStore } from '@/store/loader'
 const routes = [
   {
     path: '/',
-    name: 'map',
-    component: () => import(/* webpackChunkName: "map" */ '../views/MapView.vue')
+    redirect: '/community'
   },
 
   {
