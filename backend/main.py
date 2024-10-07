@@ -13,6 +13,7 @@ app = FastAPI()
 
 origins = [
     "http://localhost:8080",
+    "https://in4u.kmapshot.com"
 ]
 
 app.add_middleware(
